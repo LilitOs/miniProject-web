@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <div>
-      <h1>Conversions</h1>
-        <h2>{{baseUnit}}</h2>
-        <ul>
-          <li v-for="Unit in Units" :key="Unit">
+    <div class="border border-secondary rounded m-auto p-3" >
+      <h1 class="pb-2">Conversions</h1>
+      <div class="card card border-light mb-3 " v-for="Unit in Units" :key="Unit" >
+          <div class="card-header">
+          <h5 class="font-weight-bold">{{Unit.name}} </h5>
+          </div>
+          <div class="card-body" >
             <p>1 {{baseUnit}} =  {{Unit.formula}}  {{ Unit.name }}</p>
-            <label>{{Value}} {{baseUnit}} = {{Value*Unit.formula}} {{Unit.name}}</label>
-            <label></label>
-          </li>
-        </ul>
+            <p class="font-weight-bold"> {{Value}} {{baseUnit}} = {{Value*Unit.formula}} {{Unit.name}}</p>
+          </div>
+        </div>
     </div>
     <div class="border border-secondary rounded m-auto p-3">
       <h3>Base Unit</h3>
@@ -39,8 +40,8 @@
         <input class="form-control" type="text" v-model="newUnit.formula"><br>
       </div>
       <div class="d-flex justify-content-md-center">
-        <button @click="addNewUnit()" class="btn btn-outline-primary m-1">Add new Unit</button>
-        <button @click="resetUnits()" class="btn btn-outline-danger m-1">Reset Units </button>
+        <button @click="addNewUnit()" class="btn btn-outline-primary m-1">Add new unit</button>
+        <button @click="resetUnits()" class="btn btn-outline-danger m-1">Reset units </button>
       </div>
       </form>
     </div>
