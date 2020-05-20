@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <div>
-      <h1>Units list</h1>
+      <h1>Conversions</h1>
         <h2>{{baseUnit}}</h2>
         <ul>
           <li v-for="Unit in Units" :key="Unit">
@@ -11,22 +11,37 @@
           </li>
         </ul>
     </div>
-    <div>
+    <div class="border border-secondary rounded m-auto p-3">
       <h3>Base Unit</h3>
-        <label v-if="baseUnit !== ''">Value to convert</label>
-        <input v-if="baseUnit !== ''" type="text" v-model="Value">
+      <div class="m-2">
         <label>Base Unit</label>
-        <input type="text" v-model="baseUnit">
-      </form>
+        <input class="form-control" type="text" v-model="baseUnit">
+      </div>
+      <div class="m-2">
+        <label v-if="baseUnit !== ''">Value to convert</label>
+        <div class="input-group">
+          <input class="form-control" v-if="baseUnit !== ''" type="text" v-model="Value">
+          <div class="input-group-append">
+            <span v-if="baseUnit !== ''" class="input-group-text" id="basic-addon2">{{baseUnit}}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
+    <div class="border border-secondary rounded p-3">
     <h3>New Unit</h3>
-      <form @submit.prevent="addNewUnit()">
+      <form @submit.prevent>
+      <div class="m-2">
         <label>Unit name </label>
-        <input type="text" v-model="newUnit.name">
+        <input class="form-control" type="text" v-model="newUnit.name">
+      </div>
+      <div class="m-2">
         <label>Unit formula (multipplier based on base unit)</label>
-        <input type="text" v-model="newUnit.formula"><br>
-        <button>Add new Unit</button>
+        <input class="form-control" type="text" v-model="newUnit.formula"><br>
+      </div>
+      <div class="d-flex justify-content-md-center">
+        <button @click="addNewUnit()" class="btn btn-outline-primary m-1">Add new Unit</button>
+        <button @click="resetUnits()" class="btn btn-outline-danger m-1">Reset Units </button>
+      </div>
       </form>
     </div>
   </div>
@@ -47,6 +62,9 @@
       addNewUnit() {
         this.Units.push(this.newUnit);
         this.newUnit = {};
+      },
+      resetUnits(){
+        this.Units = this.Units.splice();
       }
     }
   };
