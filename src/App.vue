@@ -1,20 +1,34 @@
 <template>
   <div>
     <div>
-      <h1>Participants list</h1>
-      <ol>
-        <li v-for="participant in participants" :key="participant">{{ participant.firstname }} {{ participant.lastname }}</li>
-      </ol>
+      <h1>Units list</h1>
+        <h2>{{baseUnit}}</h2>
+        <ul>
+          <li v-for="Unit in Units" :key="Unit">
+            <p>1 {{baseUnit}} =  {{Unit.formula}}  {{ Unit.name }}</p>
+            <label>{{Value}} {{baseUnit}} = {{Value*Unit.formula}} {{Unit.name}}</label>
+            <label></label>
+          </li>
+        </ul>
     </div>
-
-    <h3>New participant</h3>
-    <form @submit.prevent="addNewParticipant()">
-      <label>Firstname</label>
-      <input type="text" v-model="newParticipant.firstname">
-      <label>Lastname</label>
-      <input type="text" v-model="newParticipant.lastname">
-      <button>Add new participant</button>
-    </form>
+    <div>
+      <h3>Base Unit</h3>
+        <label v-if="baseUnit !== ''">Value to convert</label>
+        <input v-if="baseUnit !== ''" type="text" v-model="Value">
+        <label>Base Unit</label>
+        <input type="text" v-model="baseUnit">
+      </form>
+    </div>
+    <div>
+    <h3>New Unit</h3>
+      <form @submit.prevent="addNewUnit()">
+        <label>Unit name </label>
+        <input type="text" v-model="newUnit.name">
+        <label>Unit formula (multipplier based on base unit)</label>
+        <input type="text" v-model="newUnit.formula"><br>
+        <button>Add new Unit</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -22,14 +36,17 @@
   export default {
     data() {
       return {
-        participants: [],
-        newParticipant: {},
+        Value: '',
+        baseUnit: '',
+        Units: [],
+        newUnit: {
+        },
       };
     },
     methods: {
-      addNewParticipant() {
-        this.participants.push(this.newParticipant);
-        this.newParticipant = {};
+      addNewUnit() {
+        this.Units.push(this.newUnit);
+        this.newUnit = {};
       }
     }
   };
